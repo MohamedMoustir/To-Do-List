@@ -3,7 +3,7 @@ let tmp=null;
 
 // get data in html
   const addTasks = document.getElementById("addTasks");
-
+//add tasks
   addTasks.addEventListener('click', function () {
 
   let description = document.getElementById("description");
@@ -34,12 +34,8 @@ let tmp=null;
   localStorage.setItem("task", JSON.stringify(setdata))
   
   setDataInnerHtml()
-  closeCardsTasks()
-  clearFormFields()
-
-
-
- 
+  closeCardsTasks() 
+  clearFormFields() 
 })
 
 
@@ -77,7 +73,7 @@ let tmp=null;
           <h3 class="font-bold">${task.Titer}</h3>
           <p class="text-zinc-500 text-xs my-2">${task.description}</p>
           <div class="flex justify-between mt-3">
-            <button type="button" onclick="openpopUpremove(this)" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-2">Remove</button>
+            <button type="button" onclick="openpopUpremove(${task.id})" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-2">Remove</button>
             <button type="button"  onclick="Update(${task.id})" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3">Update</button>
           </div>
         </div>
@@ -96,6 +92,7 @@ let tmp=null;
       setdata = JSON.parse(localStorage.getItem("task"));
     }
     setDataInnerHtml();
+    
   };
 
 
@@ -106,10 +103,8 @@ let tmp=null;
   const header = document.querySelector("header");
   
   // function Open mun
-  let navbar = document.getElementById("navbar-hamburger")
-  
-  
   function OpenMnue() {
+  let navbar = document.getElementById("navbar-hamburger")
     navbar.classList.toggle("hidden");
   }
   
@@ -118,34 +113,28 @@ let tmp=null;
   function openCardsTasks() {
     crud_modal.classList.toggle("hidden");
     header.classList.toggle('blur-sm');
-
   }
-  // function close cards add tasks and remove style
+  //  close 
   function closeCardsTasks() {
     crud_modal.classList.toggle("hidden");
     header.classList.toggle('blur-sm');
-  
-  
   }
   
   
   
+
+
   // function popup Remove
-  function openpopUpremove(target){
-    let popup_remove= document.getElementById("popup-remove");
-     popup_remove.classList.toggle("hidden");
-     header.classList.toggle('blur-sm');
+  function openpopUpremove(id){
+    // let popup_remove= document.getElementById("popup-remove");
+    //  popup_remove.classList.toggle("hidden");
+    //  header.classList.toggle('blur-sm');
+    setdata = setdata.filter(task => task.id !== id);
+    localStorage.setItem("task", JSON.stringify(setdata));
+      setDataInnerHtml();
 
-  
-    target.parentElement.parentElement.parentElement.remove();
-   }
-     
-  //
+  }
 
-
-
-
-  //
   function closepopupremove(){
     let popup_remove= document.getElementById("popup-remove");
    popup_remove.classList.toggle("hidden");
@@ -153,19 +142,5 @@ let tmp=null;
   
   }
 
-  function Update(tas) {
-    const taskToEdit = setdata.find(task => task.id === tas);
-    if (taskToEdit) {
-        document.getElementById("description").value = taskToEdit.description;
-        document.getElementById("titer").value = taskToEdit.Titer;
-        document.getElementById("priorite").value = taskToEdit.priorite;
-        document.getElementById("Status").value = taskToEdit.Status;
-        document.getElementById("date_limite").value = taskToEdit.date_limite;
-        tmp = tas; 
 
-        
-    }
-    //  localStorage.setItem("task", JSON.stringify(setdata));
-    //     setDataInnerHtml();
-    //     clearFormFields();
-}
+
