@@ -54,7 +54,7 @@
         <div class="w-full max-w-sm min-w-[200px]">
           <input
             class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-            placeholder="Type here...">
+            placeholder="Type here..." onkeyup="recherche(this.value)" id="recher">
         </div>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
           onclick="AddMultiple()">Add Multiple +</button>
@@ -63,18 +63,18 @@
 
         <div class="border-b-2 border-red-500  p-3 w-64">
           <div class="font-bold">
-            <h1>TO DO<span class="border-l-2 border-y-yellow-200 px-1">1</span></h1>
+            <h1>TO DO<span class="border-l-2 border-y-yellow-200 px-1" id="countone">1</span></h1>
           </div>
 
 
         </div>
         <div class="border-b-2 border-yellow-300  p-3 w-64">
-          <div class="font-bold">In Progess <span class="border-l-2 border-y-yellow-200 px-1">1</span></div>
+          <div class="font-bold">In Progess <span class="border-l-2 border-y-yellow-200 px-1" id="counttwe">1</span></div>
         </div>
 
 
         <div class="border-b-2 border-green-600  p-3 w-64">
-          <div class="font-bold">Done <span class="border-l-2 border-y-yellow-200 px-1">1</span></div>
+          <div class="font-bold">Done <span class="border-l-2 border-y-yellow-200 px-1" id="counttree">1</span></div>
 
         </div>
 
@@ -83,7 +83,7 @@
       </div>
 
       <!-- tasks -->
-      <div class="grid grid-cols-3" id="task">
+      <div class="grid grid-cols-3" id="taskHTML">
 
 
         <div id="task1" class="">
@@ -216,7 +216,7 @@
   <div id="popup-remove" tabindex="-1"
     class=" hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full    translate-x-40 my-32 mx-96 	translate-y-24 ">
     <div class="relative p-4 w-full max-w-md max-h-full">
-      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 ">
         <button type="button"
           class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
           data-modal-hide="popup-modal" onclick="closepopupremove()">
