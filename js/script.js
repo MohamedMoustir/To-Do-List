@@ -1,14 +1,22 @@
+
+
+
+
+
+
 let setdata;
 var tmp = null;
-let mood= 'create'
+let countToDo = 0;
+let countDoing = 0;
+let count1Done = 0;
+
+
+
+
+
 console.log(tmp);
 
-// get data in html
-const addTasks = document.getElementById("addTasks");
-//add tasks
-addTasks.addEventListener('click', function () {
- 
-
+function addTask(){
   if (document.getElementById("description").value == '' || document.getElementById("titer").value == '' || document.getElementById("date_limite").value == '') {
     alert("email is found")
 
@@ -28,9 +36,9 @@ addTasks.addEventListener('click', function () {
     } else {
       setdata = [];
     }
-   
+
     let getDta = {
-      id:Math.random() * 100,
+      id: Math.random() * 100,
       Titer: Titer.value,
       priorite: priorite.value,
       Status: Status.value,
@@ -38,26 +46,32 @@ addTasks.addEventListener('click', function () {
       description: description.value,
 
     }
+// check or find id in this arry or no
+    const index = setdata.findIndex(task => task.id === tmp);
+    if (index !== false) {
+      setdata[index] = getDta;
+    } else {
+      setdata.push(getDta); 
+    }
     
-    console.log("id is ",tmp); 
-    
-     if(mood =='create'){
-      setdata.push(getDta)
-      
-     }else{
-      setdata[tmp]=getDta;
-      tmp =null
-     }
-    
-     localStorage.setItem("task", JSON.stringify(setdata))
+    localStorage.setItem("task", JSON.stringify(setdata))
 
     setDataInnerHtml()
     closeCardsTasks()
     clearFormFields()
     location.reload()
   }
-})
-console.log(mood);
+}
+
+// get data in html
+// const addTasks = document.getElementById("addTasks");
+// //add tasks
+// addTasks.addEventListener('click', function () {
+
+
+ 
+// })
+// console.log(mood);
 
 
 // clear data
@@ -74,25 +88,28 @@ function clearFormFields() {
 // ajout data in html
 
 function setDataInnerHtml() {
-
+  // declartion task
   let taskContainer1 = document.getElementById("task1");
   let taskContainer2 = document.getElementById("task2");
   let taskContainer3 = document.getElementById("task3");
 
-
+  //declartion count
+  let countone = document.getElementById("countone");
+  let counttwe = document.getElementById("counttwe");
+  let counttree = document.getElementById("counttree");
 
 
   taskContainer1.innerHTML = "";
   taskContainer2.innerHTML = "";
   taskContainer3.innerHTML = "";
 
-
   setdata.forEach(task => {
-  
+   
+
     switch (task.Status) {
 
       case "To Do":
-        
+
         taskContainer1.innerHTML += `
           <div  >
             <div class="bg-white shadow-md border border-red-600 border-l-8 p-4 mb-4 w-64 relative" >
@@ -116,11 +133,15 @@ function setDataInnerHtml() {
             </div>
             </div>
           `;
+          countToDo++;
+
+
         break;
 
-        
+
+
       case "In Progess":
-       
+
         taskContainer2.innerHTML += `
           <div class="">
           <div class="bg-white shadow-md border border-black border-l-8 p-4 mb-4 w-64  block justify-center" >
@@ -145,11 +166,11 @@ function setDataInnerHtml() {
           </div>
         `;
 
-        
-break;
+
+        break;
 
       case "Done":
-        
+
         taskContainer3.innerHTML += `
            <div class="">
           <div class="bg-white shadow-md border border-green-600 border-l-8 p-4 mb-4 w-64  block justify-center" >
@@ -173,14 +194,17 @@ break;
           </div>
           </div>
         `;
-        
+
       default:
         break;
 
     }
-  
+    // count
+    countone.innerText=countToDo;
   });
 
+  countone.style.color="red"
+ 
 
 }
 
@@ -222,7 +246,7 @@ function openCardsTasks() {
 function closeCardsTasks() {
   crud_modal.classList.toggle("hidden");
   header.classList.toggle('blur-sm');
-  
+
 }
 
 
@@ -248,32 +272,31 @@ function closepopupremove() {
 
 // function Update Tasks
 
-
 function UpditeTask(i) {
   crud_modal.classList.toggle("hidden");
   header.classList.toggle('blur-sm');
-  addTasks.innerHTML="Updite";
-
-
-const task = setdata.find(task => task.id === i);
-
-if (task) {
-  document.getElementById("description").value = task.description;
-  document.getElementById("titer").value = task.Titer;
-  document.getElementById("priorite").value = task.priorite;
-  document.getElementById("Status").value = task.Status;
-  document.getElementById("date_limite").value = task.date_limite;
-}
- mood = 'updite';
-tmp=i;
-
- }
+  addTasks.innerHTML = "Update";
  
- function recherche(value){
- let recher = document.getElementById("recher")
-  setdata = setdata.filter(filter => filter.Titer === value);
+  tmp = i; 
+
+  const task = setdata.find(task => task.id === i);
+
+  if (task) {
+    document.getElementById("description").value = task.description;
+    document.getElementById("titer").value = task.Titer;
+    document.getElementById("priorite").value = task.priorite;
+    document.getElementById("Status").value = task.Status;
+    document.getElementById("date_limite").value = task.date_limite;
+  }
+}
+
+
+
+function recherche(value) {
+  let recher = document.getElementById("recher")
+  setdata = setdata.filter(filter => filter.Titer === filter.Titer.includes(value));
   setDataInnerHtml();
   if (recher.value == '') {
     location.reload()
   }
- }
+}
