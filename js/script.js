@@ -6,9 +6,6 @@
 
 let setdata;
 var tmp = null;
-let countToDo = 0;
-let countDoing = 0;
-let count1Done = 0;
 
 
 
@@ -48,12 +45,12 @@ function addTask(){
     }
 // check or find id in this arry or no
     const index = setdata.findIndex(task => task.id === tmp);
-    if (index !== false) {
+    if (index !== -1) {
       setdata[index] = getDta;
     } else {
       setdata.push(getDta); 
     }
-    
+
     localStorage.setItem("task", JSON.stringify(setdata))
 
     setDataInnerHtml()
@@ -98,13 +95,17 @@ function setDataInnerHtml() {
   let counttwe = document.getElementById("counttwe");
   let counttree = document.getElementById("counttree");
 
+  let countToDo = 0;
+    let countDoing = 0;
+    let countDone = 0;
+    
 
   taskContainer1.innerHTML = "";
   taskContainer2.innerHTML = "";
   taskContainer3.innerHTML = "";
 
   setdata.forEach(task => {
-   
+    
 
     switch (task.Status) {
 
@@ -134,8 +135,6 @@ function setDataInnerHtml() {
             </div>
           `;
           countToDo++;
-
-
         break;
 
 
@@ -165,7 +164,7 @@ function setDataInnerHtml() {
           </div>
           </div>
         `;
-
+        countDoing++;
 
         break;
 
@@ -194,13 +193,17 @@ function setDataInnerHtml() {
           </div>
           </div>
         `;
-
+        countDone++;
       default:
         break;
-
+       
     }
     // count
     countone.innerText=countToDo;
+    counttwe.innerText=countDone;
+    counttree.innerText=countDoing;
+
+
   });
 
   countone.style.color="red"
@@ -261,6 +264,7 @@ function removeTask(id) {
   setdata = setdata.filter(filter => filter.id !== id);
   localStorage.setItem("task", JSON.stringify(setdata));
   setDataInnerHtml();
+  
 }
 
 function closepopupremove() {
