@@ -1,17 +1,6 @@
 
-
-
-
-
-
 let setdata;
 var tmp = null;
-
-
-
-
-
-console.log(tmp);
 
 function addTask(){
   if (document.getElementById("description").value == '' || document.getElementById("titer").value == '' || document.getElementById("date_limite").value == '') {
@@ -49,6 +38,7 @@ function addTask(){
       setdata[index] = getDta;
     } else {
       setdata.push(getDta); 
+      
     }
 
     localStorage.setItem("task", JSON.stringify(setdata))
@@ -58,7 +48,12 @@ function addTask(){
     clearFormFields()
     location.reload()
     sortTasksByPriority();
+    // triPar_priorite();
   }
+  
+
+
+
 }
 
 
@@ -87,7 +82,7 @@ function setDataInnerHtml() {
   let counttwe = document.getElementById("counttwe");
   let counttree = document.getElementById("counttree");
 
-  let countToDo = 0;
+    let countToDo = 0;
     let countDoing = 0;
     let countDone = 0;
     
@@ -98,14 +93,13 @@ function setDataInnerHtml() {
 
   setdata.forEach(task => {
     
-
     switch (task.Status) {
-
+    
       case "To Do":
-
+       
         taskContainer1.innerHTML += `
-          <div  >
-            <div class="bg-white shadow-md border border-red-600 border-l-8 p-4 mb-4 w-64 relative" >
+          <div>
+            <div class="bg-white shadow-md border  border-l-8 p-4 mb-4 w-64 relative card">
               <div class="absolute leading-3 font-bold right-2 top-0 size-5">
                 <h1 onclick="openChoxtodo()">...</h1>
               </div>
@@ -126,7 +120,9 @@ function setDataInnerHtml() {
             </div>
             </div>
           `;
+
           countToDo++;
+          
         break;
 
 
@@ -199,10 +195,20 @@ function setDataInnerHtml() {
 
   });
 
-  countone.style.color="red"
- 
+  // countone.style.color="red"
+
+  
+  //  switch (priorite.value) {
+  //   case "P1":
+  //     document.getElementById("card").color.border="2px solid red";
+      
+
+
+  //     break;
+  //  }
 
 }
+
 
 
 
@@ -214,7 +220,7 @@ window.onload = function () {
     setdata = JSON.parse(localStorage.getItem("task"));
   }
   setDataInnerHtml();
-  sortTasksByPriority();
+
 };
 
 
@@ -291,11 +297,40 @@ function UpditeTask(i) {
 
 function recherche(value) {
   let recher = document.getElementById("recher")
-  setdata = setdata.filter(filter => filter.Titer == value);
 
-  setDataInnerHtml();
+  setdata = setdata.filter(filter => filter.Titer == recher.value);
+  
+    setDataInnerHtml();
 
+  // 
   if (recher.value == '') {
     location.reload()
   }
 }
+
+// function triPar_priorite(){
+  
+//   taskContainer1.innerHTML = "";
+//   taskContainer2.innerHTML = "";
+//   taskContainer3.innerHTML = "";
+
+// setdata.forEach(p => {
+//   if(p.priorite =='P1'){
+//     taskContainer1.innerHTML += setDataInnerHtml(p);
+//     console.log(p.priorite);
+//   }
+ 
+  
+// });
+// // setdata.forEach(f => {
+// //   if(f.priorite=='P2'){
+// //     taskContainer2.innerHTML += setDataInnerHtml(f)
+// //   }
+// // });
+// // setdata.forEach(e => {
+// //   if(e.priorite=='P3'){
+    
+// //     taskContainer2.innerHTML +=setDataInnerHtml(e); 
+// //   }
+// // });
+// }
