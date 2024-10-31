@@ -57,18 +57,10 @@ function addTask(){
     closeCardsTasks()
     clearFormFields()
     location.reload()
+    sortTasksByPriority();
   }
 }
 
-// get data in html
-// const addTasks = document.getElementById("addTasks");
-// //add tasks
-// addTasks.addEventListener('click', function () {
-
-
- 
-// })
-// console.log(mood);
 
 
 // clear data
@@ -140,10 +132,10 @@ function setDataInnerHtml() {
 
 
       case "In Progess":
-
+       
         taskContainer2.innerHTML += `
           <div class="">
-          <div class="bg-white shadow-md border border-black border-l-8 p-4 mb-4 w-64  block justify-center" >
+          <div class="bg-white shadow-md border border-yellow-300 border-l-8 p-4 mb-4 w-64  block justify-center" >
              <div class="absolute leading-3 font-bold right-2 top-0 size-5">
                 <h1 onclick="openChoxtodo()">...</h1>
               </div>
@@ -193,6 +185,7 @@ function setDataInnerHtml() {
           </div>
           </div>
         `;
+
         countDone++;
       default:
         break;
@@ -200,8 +193,8 @@ function setDataInnerHtml() {
     }
     // count
     countone.innerText=countToDo;
-    counttwe.innerText=countDone;
-    counttree.innerText=countDoing;
+    counttwe.innerText=countDoing;
+    counttree.innerText=countDone;
 
 
   });
@@ -221,7 +214,7 @@ window.onload = function () {
     setdata = JSON.parse(localStorage.getItem("task"));
   }
   setDataInnerHtml();
-
+  sortTasksByPriority();
 };
 
 
@@ -298,8 +291,10 @@ function UpditeTask(i) {
 
 function recherche(value) {
   let recher = document.getElementById("recher")
-  setdata = setdata.filter(filter => filter.Titer === filter.Titer.includes(value));
+  setdata = setdata.filter(filter => filter.Titer == value);
+
   setDataInnerHtml();
+
   if (recher.value == '') {
     location.reload()
   }
