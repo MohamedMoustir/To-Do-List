@@ -3,6 +3,7 @@
 var tmp = null;
 // let setdata = JSON.parse(localStorage.getItem("task")) || [];
 
+
 let description = document.getElementById("description");
 let Titer = document.getElementById("titer");
 let priorite = document.getElementById("priorite");
@@ -16,12 +17,17 @@ let taskContainer2 = document.getElementById("task2");
 let taskContainer3 = document.getElementById("task3");
 
 
-
 function addTask(){
-  if (document.getElementById("description").value == '' || document.getElementById("titer").value == '' || document.getElementById("date_limite").value == '') {
-    alert("email is found")
-  } else {
+  let validTiter = /^[a-zA-Z]{1,6}\s?/ig;
+  let validDescription = /^[a-zA-Z0-9]{1,10}\s?/ig;
+  if(!validTiter.test(Titer.value) ){
+alert("ccc")
 
+  }else if (!validDescription.test(description.value)){
+    
+    alert("hhhhhhhhhhhhhhhhhhhhhh")
+    
+   } else{  
     let getDta = {
       id: Math.random() * 100,
       Titer: Titer.value,
@@ -42,15 +48,15 @@ function addTask(){
 
     localStorage.setItem("task", JSON.stringify(setdata))
     
-
     setDataInnerHtml()
     closeCardsTasks()
     clearFormFields()
     location.reload()
     sortTasksByPriority();
-
   }
-}
+  }
+  
+ 
 
 
 
@@ -128,12 +134,13 @@ function setDataInnerHtml() {
        } 
        if (task.Status == "Done") {
         taskContainer3.innerHTML += ajoute(task,borderColor) 
-        
+         countDone++;
        } 
-      countDone++;
+     
     }
+    
   });
-
+ 
   // Update task counts
   document.getElementById("countone").innerText = countToDo;
   document.getElementById("counttwe").innerText = countDoing;
@@ -141,6 +148,8 @@ function setDataInnerHtml() {
 }
 
 function ajoute(item,borderColor) {
+  
+  
   let taskHTML= `
       <div class="bg-white shadow-md border border-l-8 p-4 mb-4 w-64 relative card" style="border-left:${borderColor}">
         <div class="absolute leading-3 font-bold right-2 top-0 size-5">
@@ -253,8 +262,41 @@ function recherche(value) {
 }
 
 
+// let  validDescription;
+
+// function name() {
+    
+//     let validTiter =/^\w+{3}/;
+//     let vh =validTiter.test(Titer.value);
+//     if(vh){
+//       alert("eee")
+//     }
+
+//   }
+
+
+  
+  //  validDescription =/^\w+$/;
+  //  validTiter =/^\w+{3}/;
+
+  //  
+// if (!validDescription.test(description.value)) {
+// console.log("zzzzzzzzzzzz");
 
 // }
 
-// triPar_priorite()
-// دالة عرض المهام في 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
