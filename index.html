@@ -10,9 +10,7 @@
 
 <body class="font-poppins bg-slate-100">
 
-
   <nav class="">
-
     <button data-collapse-toggle="navbar-hamburger" type="button"
       class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 absolute right-24 "
       aria-controls="navbar-hamburger" aria-expanded="false" onclick="OpenMnue()">
@@ -27,19 +25,19 @@
         class="flex flex-col font-medium mt-4 w-32 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700 text-center absolute right-24 bottom-80">
         <li>
           <a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded dark:bg-blue-600"
-            aria-current="page">Home</a>
+            aria-current="page">tri par</a>
         </li>
         <li>
           <a href="#"
-            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Services</a>
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" id="p1">P1</a>
         </li>
         <li>
           <a href="#"
-            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white">Pricing</a>
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white" id="triparTiter">Titer</a>
         </li>
         <li>
           <a href="#"
-            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Contact</a>
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Deta</a>
         </li>
       </ul>
     </div>
@@ -155,9 +153,9 @@
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">priorite</label>
                 <select id="priorite"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                  <option selected value="P1">P1</option>
-                  <option value="P2">P2</option>
-                  <option value="P3">P3</option>
+                  <option selected value="1">P1</option>
+                  <option value="2">P2</option>
+                  <option value="3">P3</option>
 
                 </select>
               </div>
@@ -178,7 +176,7 @@
               <div class="relative max-w-sm">
                 <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date
                   limite</label>
-                <input id="date_limite" type="month"
+                <input id="date_limite" type="date"
                   class="  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 flex w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="29/10">
               </div>
