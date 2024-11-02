@@ -1,7 +1,7 @@
 
 
 var tmp = null;
-
+let addTask = document.getElementById("addTask");
 let local = JSON.parse(localStorage.getItem("task")) || [];
 let description = document.getElementById("description");
 let Title = document.getElementById("Title");
@@ -14,17 +14,24 @@ let taskContainer2 = document.getElementById("task2");
 let taskContainer3 = document.getElementById("task3");
 let setdata = [];
 let triparP = document.getElementById("p1")
-let triparTiter =document.getElementById("triparTiter")
-let triparDate_limite =document.getElementById("triparDate_limite")
-let more_description =document.getElementById("text")
+let triparTiter = document.getElementById("triparTiter")
+let triparDate_limite = document.getElementById("triparDate_limite")
+let more_description = document.getElementById("text")
 
 // rejex
 
-function addTask() {
 
-  let validTitle = /^[a-zA-Z]{5}\s?/ig;
-  let validDescription = /^[a-zA-Z0-9]{1,}\s?/ig;
-  if (!validTitle.test(Title.value)) {
+let validTitle = /[a-zA-Z]{1,8}\s?/ig;
+let validDescription = /^[a-zA-Z0-9]{1,}\s?/ig;
+let validdetaLimite = /^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01])$/
+
+addTask.addEventListener("click", function () {
+
+  if (!validdetaLimite.test(date_limite.value)) {
+
+
+    alert("ee")
+  } else if (!validTitle.test(Title.value)) {
     alert("ccc")
 
   } else if (!validDescription.test(description.value)) {
@@ -36,7 +43,7 @@ function addTask() {
     let getDta = {
       id: Math.random() * 100,
       Title: Title.value,
-      Priority:Priority.value,
+      Priority: Priority.value,
       Status: Status.value,
       date_limite: date_limite.value,
       description: description.value,
@@ -50,24 +57,17 @@ function addTask() {
       setdata.push(getDta);
 
     }
-
-
-
-
-
-
-
     localStorage.setItem("task", JSON.stringify(setdata))
 
     setDataInnerHtml()
     closeCardsTasks()
     clearFormFields()
-    location.reload()
-   
+    // location.reload()
+
   }
 
+})
 
-}
 
 
 
@@ -108,60 +108,61 @@ function setDataInnerHtml() {
     switch (task.Priority) {
       case '1':
         if (task.Status == "To Do") {
-        
+
           taskContainer1.innerHTML += ajoute(task, borderColor)
-        }
-        
-      if (task.Status == "In Progess") {
-      
-        taskContainer2.innerHTML += ajoute(task, borderColor)
-
-      }
-      if (task.Status == "Done") {
-      
-        taskContainer3.innerHTML += ajoute(task, borderColor)
-
-      }
-        break;
-     case '2':
-      if (task.Status == "To Do") {
-      
-        taskContainer1.innerHTML += ajoute(task, borderColor)
-
-      }
-      if (task.Status == "In Progess") {
-      
-        taskContainer2.innerHTML += ajoute(task, borderColor)
-
-      }
-      if (task.Status == "Done") {
-      
-        taskContainer3.innerHTML += ajoute(task, borderColor)
-
-      }
-        break;
-        case '3':
-          if (task.Status == "To Do") {
-            
-            taskContainer1.innerHTML += ajoute(task, borderColor)
-    
-          }
-          if (task.Status == "In Progess") {
-            taskContainer2.innerHTML += ajoute(task, borderColor)
-    
-          }
-          if (task.Status == "Done") {
-            taskContainer3.innerHTML += ajoute(task, borderColor)
-    
-          }
-          break;
-          countDone++;
           countToDo++;
+        }
+
+        if (task.Status == "In Progess") {
+
+          taskContainer2.innerHTML += ajoute(task, borderColor)
+          countDoing++;
+        }
+        if (task.Status == "Done") {
+
+          taskContainer3.innerHTML += ajoute(task, borderColor)
           countDone++;
-      
+        }
+        break;
+      case '2':
+        if (task.Status == "To Do") {
+
+          taskContainer1.innerHTML += ajoute(task, borderColor)
+          countToDo++;
+        }
+        if (task.Status == "In Progess") {
+
+          taskContainer2.innerHTML += ajoute(task, borderColor)
+          countDoing++;
+        }
+        if (task.Status == "Done") {
+
+          taskContainer3.innerHTML += ajoute(task, borderColor)
+          countDone++;
+        }
+        break;
+      case '3':
+        if (task.Status == "To Do") {
+
+          taskContainer1.innerHTML += ajoute(task, borderColor)
+          countToDo++;
+        }
+        if (task.Status == "In Progess") {
+          taskContainer2.innerHTML += ajoute(task, borderColor)
+          countDoing++;
+        }
+        if (task.Status == "Done") {
+          taskContainer3.innerHTML += ajoute(task, borderColor)
+          countDone++;
+        }
+        break;
+
+
+
+
     }
-    
-   
+
+
 
   });
 
@@ -172,13 +173,38 @@ function setDataInnerHtml() {
 }
 
 function ajoute(item, borderColor) {
+
+
+
+  let new_date = new Date();
+
+  let year = new_date.getFullYear();
+  let month = new_date.getMonth() + 1;
+  let day = new_date.getDate();
+
+
+  let date = `${year}-${month}-0${day}`;
+
+  let dateUtilse = item.date_limite
+
+  let color_time;
+  if (dateUtilse < date) {
+    color_time = "8px solid red"
+  } else {
+    color_time = "8px solid green"
+
+  }
+
+
+
+
   const time = item.date_limite.split("-");
   const mounth = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   let timenwe = new Date(time);
 
   // 
-  more_description.innerHTML=item.description;
+  more_description.innerHTML = item.description;
 
   let taskHTML = `
       <div class="bg-white shadow-md border border-l-8 p-4 mb-4 w-64 relative card" style="border-left:${borderColor}">
@@ -187,9 +213,9 @@ function ajoute(item, borderColor) {
         </div>
         <div class="relative max-w-sm">
   
-          <h1 class="border border-l-8 border-black w-18 absolute right-0 top-7 px-56 text-gray-700" id="limite ">${time[1]} ${mounth[Number(time[1]) - 1]}</h1>
+          <h1 class="border border-l-8 border-black w-18 absolute right-0 top-7 px-56 text-gray-700 font-medium" id="limite " style=" border-left:${color_time}"style"   >${time[1]} ${mounth[Number(time[1]) - 1]}</h1>
         </div>
-        <h3 class="font-bold">${item.Titer}</h3>
+        <h3 class="font-bold">${item.Title}</h3>
         <p class="text-zinc-500 text-xs my-2">${item.description.slice(0, 5) + "..."} | <span>P${item.Priority}</span></p>
         <div class="flex justify-between mt-3">
           <button onclick="removeTask(${item.id})" class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-2 py-2">Remove</button>
@@ -266,18 +292,17 @@ function closepopupremove() {
 function UpditeTask(i) {
   crud_modal.classList.toggle("hidden");
   header.classList.toggle('blur-sm');
-  addTasks.innerHTML = "Update";
+  addTask.innerHTML = "Update";
 
   tmp = i;
 
   const task = setdata.find(task => task.id === i);
-
   if (task) {
-    document.getElementById("description").value = task.description;
-    document.getElementById("Title").value = task.Titer;
-    document.getElementById("Priority").value = task.Priority;
-    document.getElementById("Status").value = task.Status;
-    document.getElementById("date_limite").value = task.date_limite;
+    description.value = task.description;
+    Title.value = task.Title;
+    Priority.value = task.Priority;
+    Status.value = task.Status;
+    date_limite.value = task.date_limite;
   }
 }
 
@@ -297,7 +322,7 @@ triparP.onclick = function () {
   function compare(a, b) {
     let pA = a.Priority;
     let pB = b.Priority;
-    return pA - pB; 
+    return pA - pB;
 
   }
   setdata = local.sort(compare);
@@ -306,47 +331,48 @@ triparP.onclick = function () {
 
 // tri par Title
 triparTiter.onclick = function () {
-  
-setdata.sort((a, b) => {
-  const TiterA = a.Title.toUpperCase();
-  const titerB = b.Title.toUpperCase(); 
-  
-  if (TiterA < titerB) {
-    return -1;
-  }
-  if (TiterA > titerB) {
-    return 1;
-  }
-  return 0;
-});
+
+  setdata.sort((a, b) => {
+    const TiterA = a.Title.toUpperCase();
+    const titerB = b.Title.toUpperCase();
+
+    if (TiterA < titerB) {
+      return -1;
+    }
+    if (TiterA > titerB) {
+      return 1;
+    }
+    return 0;
+  });
 
   setDataInnerHtml();
-  
+
 }
 
 // triparDate_limite
 triparDate_limite.onclick = function () {
-setdata.sort((a, b) => {
-  const TiterA = a.date_limite.toUpperCase();
-  const titerB = b.date_limite.toUpperCase(); 
-  
-  if (TiterA < titerB) {
-    return -1;
-  }
-  if (TiterA > titerB) {
-    return 1;
-  }
-  return 0;
-});
+  setdata.sort((a, b) => {
+    const TiterA = a.date_limite.toUpperCase();
+    const titerB = b.date_limite.toUpperCase();
+
+    if (TiterA < titerB) {
+      return -1;
+    }
+    if (TiterA > titerB) {
+      return 1;
+    }
+    return 0;
+  });
 
   setDataInnerHtml();
-} 
+}
 
 
-function openpop_updescription(id){
+function openpop_updescription(id) {
   document.getElementById('default-modal').classList.toggle('hidden');
-  const taskk = setdata.find(taskk=> taskk.id === id)
-  if(taskk){
-    more_description.innerHTML=taskk.description;
+  const taskk = setdata.find(taskk => taskk.id === id)
+  if (taskk) {
+    more_description.innerHTML = taskk.description;
   }
 }
+
