@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>Document</title>
   <link rel="stylesheet" href="./src/output.css">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -47,76 +48,58 @@
     </div>
     </div>
   </nav>
-
-  <header class=" ">
-    <div class=" my-32 mx-52">
-      <div class="flex justify-between gap-16 ">
-        <button class="bg-[#387478] hover:bg-[#1a3b3e] text-white font-bold py-2 px-4 rounded"
-          onclick="openCardsTasks()">Add Tasks +</button>
-          <div id="search"
-          class="group cursor-pointer flex justify-center items-center rounded-lg shadow-lg h-10 w-2/5 bg-white rounded-">
-          <input onkeyup="recherche(this.value)" id="recher"
-            class="bg-transparent m-0 w-0 outline-none rounded-none  transition-all duration-[800ms]  group-hover:w-[90%]   text-black"
-            type="text" placeholder="Search" />
-          <a href="#">
-            <i class="fas fa-search fonts  text-stone-500  text-xl"></i>
-          </a>
-        </div>
-        <button class="bg-[#387478] hover:bg-[#387478] text-white font-bold py-2 px-4 rounded "
-          onclick="AddMultiple()">Add Multiple +</button>
-      </div>
-      <div class="grid grid-cols-3 gap-12 my-12 ">
-
-        <div class="border-b-2 border-white  p-3 w-64 text-white">
-          <div class="font-bold">
-            <h1>TO DO<span class="border-l-2 border-y-white px-1" id="countone">0</span></h1>
+  
+  <header class="">
+  
+      <div class="my-32 mx-5 md:mx-12 lg:mx-24 xl:mx-52">
+        <div class="flex flex-col md:flex-row justify-between gap-4 mb-12">
+          <button class="bg-[#387478] hover:bg-[#1a3b3e] text-white font-bold py-2 px-4 rounded"
+                  onclick="openCardsTasks()">Add Tasks +</button>
+          
+          <div id="search" class="group cursor-pointer flex justify-center items-center rounded-lg shadow-lg h-10 w-full md:w-1/2 lg:w-2/5 bg-white">
+            <input onkeyup="recherche(this.value)" id="recher"
+                   class="bg-transparent m-0 w-0 outline-none rounded-none transition-all duration-800 group-hover:w-[90%] text-black"
+                   type="text" placeholder="Search" />
+            <a href="#">
+              <i class="fas fa-search fonts text-stone-500 text-xl"></i>
+            </a>
           </div>
-
-
+          
+          <button class="bg-[#387478] hover:bg-[#1a3b3e] text-white font-bold py-2 px-4 rounded"
+                  onclick="AddMultiple()">Add Multiple +</button>
         </div>
-        <div class="border-b-2 border-white  p-3 w-64 text-white">
-          <div class="font-bold">In Progess <span class="border-l-2 border-y-white-200 px-1" id="counttwe">0</span>
+    
+  
+
+     <!-- tous cards  -->
+      <div class="flex justify-center items-center">
+        <div class="grid grid-cols-1 gap-12 my-12 xl:grid-cols-3">
+          <div class="text-white px-2">
+            <div class="font-bold">
+              <h1>TO DO <span class="border-l-2 border-y-white px-1 text-white" id="countone">0</span></h1>
+              <!-- cards -->
+              <div id="task1" class="cards border-t-2 my-5 border-white py-11 w-64 text-white"></div>
+            </div>
+          </div>
+  
+          <div class="text-white">
+            <div class="font-bold">In Progress <span class="border-l-2 border-y-white-200 px-1 text-white" id="counttwe">0</span></div>
+            <!-- cards -->
+            <div id="task2" class="cards border-t-2 my-5 border-white py-11 w-64 text-white self-center"></div>
+          </div>
+  
+          <div class="text-white">
+            <div class="font-bold">Done <span class="border-l-2 border-y-white-200 px-1 text-white" id="counttree">0</span></div>
+            <div id="task3" class="cards border-t-2 my-5 border-white py-11 w-64 text-white"></div>
           </div>
         </div>
-
-
-        <div class="border-b-2 border-white  p-3 w-64 text-white">
-          <div class="font-bold">Done <span class="border-l-2 border-y-white-200 px-1 " id="counttree">0</span></div>
-
-        </div>
-
-
-
       </div>
-
+  
       <!-- tasks -->
-      <div class="grid grid-cols-3" id="taskHTML">
-
-
-        <div id="task1" class="cards">
-
-
-        </div>
-
-        <div id="task2" class="cards ">
-
-
-        </div>
-
-        <div id="task3" class=" cards">
-
-
-        </div>
-
-
-
-
-      </div>
-
-
+      <div class="grid grid-cols-3" id="taskHTML"></div>
     </div>
   </header>
-
+  
   <section>
     <!-- Main modal -->
     <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -249,12 +232,12 @@
     <section>
 
 
-      <!-- Main modal -->
+      <!-- Main description -->
       <div id="default-modal" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-[50%] right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        class="hidden flex overflow-y-auto overflow-x-hidden fixed top-[50%] right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
           <!-- Modal content -->
-          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 h-52 max-h-60">
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
@@ -273,8 +256,8 @@
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
-              <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="text">
-
+              <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 " id="text">
+                  
               </p>
 
             </div>
@@ -297,4 +280,3 @@
 </body>
 
 </html>
-<div class="flex h-screen bg-gray-100">

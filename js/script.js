@@ -327,7 +327,7 @@ triparP.onclick = function () {
 
 // tri par Title
 triparTiter.onclick = function () {
-alert("d")
+
   setdata.sort((a, b) => {
     const TiterA = a.Title.toUpperCase();
     const titerB = b.Title.toUpperCase();
