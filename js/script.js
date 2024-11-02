@@ -19,24 +19,18 @@ let triparDate_limite = document.getElementById("triparDate_limite")
 let more_description = document.getElementById("text")
 
 // rejex
-
-
 let validTitle = /[a-zA-Z]{1,8}\s?/ig;
 let validDescription = /^[a-zA-Z0-9]{1,}\s?/ig;
 let validdetaLimite = /^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01])$/
-
+// function add task  in local Storge
 addTask.addEventListener("click", function () {
 
   if (!validdetaLimite.test(date_limite.value)) {
-
-
-    alert("ee")
+    document.getElementById("errorPopup").classList.toggle("hidden")
   } else if (!validTitle.test(Title.value)) {
-    alert("ccc")
-
+    document.getElementById("errorPopup").classList.toggle("hidden")
   } else if (!validDescription.test(description.value)) {
-
-    alert("hhhhhhhhhhhhhhhhhhhhhh")
+    document.getElementById("errorPopup").classList.toggle("hidden")
 
   } else {
 
@@ -62,13 +56,17 @@ addTask.addEventListener("click", function () {
     setDataInnerHtml()
     closeCardsTasks()
     clearFormFields()
-    // location.reload()
+     location.reload()
 
   }
 
 })
 
-
+// colse pop-up rejex
+function closePopup(){
+  document.getElementById("errorPopup").classList.toggle("hidden")
+  
+}
 
 
 // clear data
@@ -92,7 +90,7 @@ function setDataInnerHtml() {
   let countDoing = 0;
   let countDone = 0;
 
-
+// divsion colors (p1 p2 p3)
   setdata.forEach(task => {
 
     let borderColor;
@@ -156,37 +154,28 @@ function setDataInnerHtml() {
           countDone++;
         }
         break;
-
-
-
-
     }
-
-
-
   });
 
-  // Update task counts
+  // add  counts in task
   document.getElementById("countone").innerText = countToDo;
   document.getElementById("counttwe").innerText = countDoing;
   document.getElementById("counttree").innerText = countDone;
 }
 
+//function ajoute task
 function ajoute(item, borderColor) {
-
-
-
+// get date now
   let new_date = new Date();
 
   let year = new_date.getFullYear();
   let month = new_date.getMonth() + 1;
   let day = new_date.getDate();
 
-
   let date = `${year}-${month}-0${day}`;
 
   let dateUtilse = item.date_limite
-
+// check date
   let color_time;
   if (dateUtilse < date) {
     color_time = "8px solid red"
@@ -194,26 +183,21 @@ function ajoute(item, borderColor) {
     color_time = "8px solid green"
 
   }
-
-
-
-
+// style date 
   const time = item.date_limite.split("-");
   const mounth = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   let timenwe = new Date(time);
-
-  // 
   more_description.innerHTML = item.description;
 
   let taskHTML = `
-      <div class="bg-white shadow-md border border-l-8 p-4 mb-4 w-64 relative card" style="border-left:${borderColor}">
+      <div class="bg-[#387478] shadow-md border border-l-8 p-4 mb-4 w-64 relative card" style="border-left:${borderColor}">
         <div class="absolute leading-3 font-bold right-2 top-0 size-5">
           <h1  onclick="openpop_updescription(${item.id})">...</h1>
         </div>
         <div class="relative max-w-sm">
   
-          <h1 class="border border-l-8 border-black w-18 absolute right-0 top-7 px-56 text-gray-700 font-medium" id="limite " style=" border-left:${color_time}"style"   >${time[1]} ${mounth[Number(time[1]) - 1]}</h1>
+          <h1 class="border border-l-8 border-black w-18 absolute right-0 top-7 px-1 text-gray-700 font-medium" id="limite " style=" border-left:${color_time}"style"   >${time[1]} ${mounth[Number(time[1]) - 1]}</h1>
         </div>
         <h3 class="font-bold">${item.Title}</h3>
         <p class="text-zinc-500 text-xs my-2">${item.description.slice(0, 5) + "..."} | <span>P${item.Priority}</span></p>
@@ -231,21 +215,20 @@ function ajoute(item, borderColor) {
 
 
 
-// onload data
+// onload window
 window.onload = function () {
   if (localStorage.getItem("task") != null) {
     setdata = JSON.parse(localStorage.getItem("task"));
   }
   setDataInnerHtml();
 
-};
+}
 
 
 
 
 const header = document.querySelector("header");
-
-// function Open mun
+// function Open choix mun
 function OpenMnue() {
   let navbar = document.getElementById("navbar-hamburger")
   navbar.classList.toggle("hidden");
@@ -253,16 +236,15 @@ function OpenMnue() {
 
 // function Open cards Add Tasks and add style in header
 let crud_modal = document.getElementById("crud-modal")
-
 function openCardsTasks() {
   crud_modal.classList.toggle("hidden");
-  header.classList.toggle('blur-sm');
+   header.style.filter="blur(4px)"
 
 }
 //  close cards add tasks
 function closeCardsTasks() {
   crud_modal.classList.toggle("hidden");
-  header.classList.toggle('blur-sm');
+   header.style.filter="blur(0)"
 
 }
 
@@ -283,17 +265,16 @@ function removeTask(id) {
 function closepopupremove() {
   let popup_remove = document.getElementById("popup-remove");
   popup_remove.classList.toggle("hidden");
-  header.classList.toggle('blur-sm');
+   header.style.filter="blur(4px)"
 }
 
 
-// function Update Tasks
-
+// function Update Task
 function UpditeTask(i) {
   crud_modal.classList.toggle("hidden");
   header.classList.toggle('blur-sm');
   addTask.innerHTML = "Update";
-
+ 
   tmp = i;
 
   const task = setdata.find(task => task.id === i);
@@ -304,13 +285,14 @@ function UpditeTask(i) {
     Status.value = task.Status;
     date_limite.value = task.date_limite;
   }
+ 
 }
 
 
 // function recherche
 function recherche(value) {
   let recher = document.getElementById("recher")
-  setdata = setdata.filter(filter => filter.Titer == recher.value);
+  setdata = setdata.filter(filter => filter.Title === recher.value);
   setDataInnerHtml();
 
 }
@@ -331,7 +313,7 @@ triparP.onclick = function () {
 
 // tri par Title
 triparTiter.onclick = function () {
-
+alert("d")
   setdata.sort((a, b) => {
     const TiterA = a.Title.toUpperCase();
     const titerB = b.Title.toUpperCase();
@@ -352,8 +334,8 @@ triparTiter.onclick = function () {
 // triparDate_limite
 triparDate_limite.onclick = function () {
   setdata.sort((a, b) => {
-    const TiterA = a.date_limite.toUpperCase();
-    const titerB = b.date_limite.toUpperCase();
+    const TiterA = a.date_limite;
+    const titerB = b.date_limite;
 
     if (TiterA < titerB) {
       return -1;
@@ -367,12 +349,16 @@ triparDate_limite.onclick = function () {
   setDataInnerHtml();
 }
 
-
+// function pop_up more description
 function openpop_updescription(id) {
   document.getElementById('default-modal').classList.toggle('hidden');
+  header.style.filter="blur(4px)"
   const taskk = setdata.find(taskk => taskk.id === id)
   if (taskk) {
     more_description.innerHTML = taskk.description;
   }
 }
-
+document.getElementById("button_close_des").onclick =function(){
+  document.getElementById('default-modal').classList.toggle('hidden');
+   header.style.filter="blur(0)"
+}
