@@ -19,14 +19,15 @@ let triparDate_limite = document.getElementById("triparDate_limite")
 let more_description = document.getElementById("text")
 
 // rejex
-let validTitle = /[a-zA-Z]{1,8}\s?/ig;
-let validDescription = /^[a-zA-Z0-9]{1,}\s?/ig;
+let validTitle = /^\w{1,10}$/;
+let validDescription = /^\w+\W?\s?\w+/ig;
 let validdetaLimite = /^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01])$/
 // function add task  in local Storge
 addTask.addEventListener("click", function () {
 
   if (!validdetaLimite.test(date_limite.value)) {
     document.getElementById("errorPopup").classList.toggle("hidden")
+    
   } else if (!validTitle.test(Title.value)) {
     document.getElementById("errorPopup").classList.toggle("hidden")
   } else if (!validDescription.test(description.value)) {
@@ -95,11 +96,11 @@ function setDataInnerHtml() {
 
     let borderColor;
     if (task.Priority === "1") {
-      borderColor = "4px solid red";
+      borderColor = "4px solid  #AF1740";
     } else if (task.Priority === "2") {
-      borderColor = "4px solid yellow";
+      borderColor = "4px solid #FD8B51";
     } else if (task.Priority === "3") {
-      borderColor = "4px solid green";
+      borderColor = "4px solid #387478";
     }
 
     // Add task to the correct container based on status
@@ -177,12 +178,11 @@ function ajoute(item, borderColor) {
   let dateUtilse = item.date_limite
 // check date
   let color_time;
+  let line_through;
   if (dateUtilse < date) {
     color_time = "8px solid red"
-  } else {
-    color_time = "8px solid green"
-
-  }
+    line_through ="line-through"
+  } 
 // style date 
   const time = item.date_limite.split("-");
   const mounth = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -191,21 +191,33 @@ function ajoute(item, borderColor) {
   more_description.innerHTML = item.description;
 
   let taskHTML = `
-      <div class="bg-[#387478] shadow-md border border-l-8 p-4 mb-4 w-64 relative card" style="border-left:${borderColor}">
-        <div class="absolute leading-3 font-bold right-2 top-0 size-5">
-          <h1  onclick="openpop_updescription(${item.id})">...</h1>
-        </div>
-        <div class="relative max-w-sm">
+  <div class="bg-white bg-opacity-90 backdrop-blur-md  shadow-lg rounded-xl border-l-4 p-4 mb-6 w-72 relative card transition-all duration-200 transform hover:scale-105 hover:shadow-2xl" style="border-left:${borderColor};">
   
-          <h1 class="border border-l-8 border-black w-18 absolute right-0 top-7 px-1 text-gray-700 font-medium" id="limite " style=" border-left:${color_time}"style"   >${time[1]} ${mounth[Number(time[1]) - 1]}</h1>
-        </div>
-        <h3 class="font-bold">${item.Title}</h3>
-        <p class="text-zinc-500 text-xs my-2">${item.description.slice(0, 5) + "..."} | <span>P${item.Priority}</span></p>
-        <div class="flex justify-between mt-3">
-          <button onclick="removeTask(${item.id})" class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-2 py-2">Remove</button>
-          <button onclick="UpditeTask(${item.id})" class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-3">Update</button>
-        </div>
-      </div>
+  <div class="absolute text-gray-500 text-lg font-bold right-3 top-2 cursor-pointer transition-colors hover:text-gray-700">
+    <h1 onclick="openpop_updescription(${item.id})">...</h1>
+  </div>
+  
+
+  <div class="relative mb-2">
+    <h1 class="border-l-4 border-gray-200 rounded-sm px-2 py-1 text-gray-600 text-sm font-medium absolute right-0 top-7 bg-white bg-opacity-80" id="limite" style="border-left:${color_time}; text-decoration-line:${line_through}">
+      ${time[1]} ${mounth[Number(time[1]) - 1]}
+    </h1>
+  </div>
+
+
+  <h3 class="font-bold text-lg text-gray-900 mb-2">${item.Title}</h3>
+  <p class="text-gray-600 text-sm mb-4">${item.description.slice(0,10)}... | <span class="font-semibold text-gray-800">P${item.Priority}</span></p>
+  
+  <div class="flex justify-between">
+    <button onclick="removeTask(${item.id})" class="bg-gradient-to-r text-red-500 to-red-600 hover:from-red-600 hover:to-red-700  font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105">
+      Remove
+    </button>
+    <button onclick="UpditeTask(${item.id})" class="bg-gradient-to-r text-green-500 to-green-600 hover:from-green-600 hover:to-green-700  font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105">
+      Update
+    </button>
+  </div>
+</div>
+
     `;
   return taskHTML
 
@@ -294,7 +306,9 @@ function recherche(value) {
   let recher = document.getElementById("recher")
   setdata = setdata.filter(filter => filter.Title === recher.value);
   setDataInnerHtml();
-
+if (recher.value='') {
+  location.reload()
+}
 }
 
 
