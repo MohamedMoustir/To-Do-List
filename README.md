@@ -11,15 +11,17 @@ Project Context TaskFlow is a start-up focused on enhancing its development team
 
 
 
+
+
 Objectifs L'objectif principal de l'application est de :
-.Permettre la création et l'organisation des tâches.
-.Simplifier le suivi de la progression des tâches.
-.Offrir une interface moderne, accessible et réactive pour tous les utilisateurs.
-.Technologies utilisée
-.Tailwind CSS : Pour une apparence moderne et cohérente sur tous les écrans.
-.JavaScript : Pour rendre l'application dynamique et interactive.
-.LocalStorage : Pour enregistrer les données de tâches et conserver les modifications même 
-.GitHub Pages / Vercel : Pour le déployer en ligne.
+**Permettre la création et l'organisation des tâches.
+**Simplifier le suivi de la progression des tâches.
+**Offrir une interface moderne, accessible et réactive pour tous les utilisateurs.
+**.Technologies utilisée
+**Tailwind CSS : Pour une apparence moderne et cohérente sur tous les écrans.
+**JavaScript : Pour rendre l'application dynamique et interactive.
+**LocalStorage : Pour enregistrer les données de tâches et conserver les modifications même 
+**GitHub Pages / Vercel : Pour le déployer en ligne.
 
 
                                     **B: Fonctionnalités**
