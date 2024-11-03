@@ -11,22 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
-
 <body class="font-poppins bg-[#243642] h-[100vh]  scroll-smooth ">
-
-<!-- statistick -->
-<div class="bg-gray-100  grid justify-center content-center top-4 text-center fixed">
-  <div class="w-fit rounded-[8px] bg-white p-3 aspect">
-      
-      <div class="my-2">
-          <h2 class="text-4xl font-bold"><span id="allstatick">0</span></h2>
-      </div>
-
-      <div>
-          <p class="mt-2 font-sans text-base font-medium  text-gray-500">Statistiques </p>
-      </div>
-  </div>
-</div>
 
   <nav class="">
     <button data-collapse-toggle="navbar-hamburger" type="button"
@@ -75,7 +60,7 @@
         <div id="search"
           class="group cursor-pointer flex justify-center items-center rounded-lg shadow-lg h-10 w-full md:w-1/2 lg:w-2/5 bg-white">
           <input onblur="recherche(this.value)" id="recher"
-            class="bg-transparent m-0 w-0 outline-none rounded-none transition-all duration-800 group-hover:w-[90%] text-black"
+            class="bg-transparent m-0  outline-none rounded-none transition-all duration-800 w-[90%] text-black"
             type="text" placeholder="Search" />
           <a href="#">
             <i class="fas fa-search fonts text-stone-500 text-xl"></i>
@@ -118,7 +103,23 @@
       <div class="grid grid-cols-3" id="taskHTML"></div>
     </div>
   </header>
+<section>
+  
+<!-- statisticK -->
+<div class="bg-gray-100  grid justify-center content-center top-4 text-center fixed">
+  <div class="w-fit rounded-[8px] bg-white p-3 aspect">
+      
+      <div class="my-2">
+          <h2 class="text-4xl font-bold"><span id="allstatick">0</span></h2>
+      </div>
 
+      <div>
+          <p class="mt-2 font-sans text-base font-medium  text-gray-500">Statistiques </p>
+      </div>
+  </div>
+</div>
+
+</section>
   <section>
     <!-- Main modal -->
     <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -248,9 +249,9 @@
     </div>
 
 
-    <section>
+  </section>
 
-
+<section>
       <!-- Main description -->
       <div id="default-modal" tabindex="-1" aria-hidden="true"
         class="hidden flex overflow-y-auto overflow-x-hidden fixed top-[50%] right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -285,7 +286,7 @@
           </div>
         </div>
       </div>
-
+    </section>
       <section>
         <div id="errorPopup"
           class="fixed inset-0 bg-black bg-opacity-50 flex items-center z-50 absolute justify-center hidden ">
