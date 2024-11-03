@@ -197,7 +197,7 @@ function ajoute(item, borderColor) {
   more_description.innerHTML = item.description;
 
   let taskHTML = `
-                        <div class="bg-white bg-opacity-90 backdrop-blur-md  shadow-lg rounded-xl border-l-4 p-4 mb-6 w-72 relative card transition-all duration-200 transform hover:scale-105 hover:shadow-2xl" style="border-left:${borderColor};">
+                        <div class=" targ bg-white bg-opacity-90 backdrop-blur-md  shadow-lg rounded-xl border-l-4 p-4 mb-6 w-72 relative card transition-all duration-200 transform hover:scale-105 hover:shadow-2xl " style="border-left:${borderColor};">
                       
                         <div class="absolute text-gray-500 text-lg font-bold right-3 top-2 cursor-pointer transition-colors hover:text-gray-700">
                           <h1 onclick="openpop_updescription(${item.id})">...</h1>
@@ -270,9 +270,16 @@ function closeCardsTasks() {
 
 // function popup Remove
 function removeTask(id) {
-  setdata = setdata.filter(filter => filter.id !== id);
-  localStorage.setItem("task", JSON.stringify(setdata));
-  setDataInnerHtml();
+  document.querySelector(".targ").style.transition = "opacity 0.5s ease, transform 0.5s ease";
+  document.querySelector(".targ").style.opacity = "0";
+  document.querySelector(".targ").style.transform = "scale(0.9)";
+
+  setTimeout(() => {
+    setdata = setdata.filter(filter => filter.id !== id);
+    localStorage.setItem("task", JSON.stringify(setdata));
+    setDataInnerHtml();
+  }, "500");
+  
 
 }
 
@@ -288,6 +295,7 @@ function UpdateTask(i) {
   crud_modal.classList.toggle("hidden");
   header.classList.toggle('blur-sm');
   addTask.innerHTML = "Update";
+
  document.getElementById("text_up").innerHTML="Update New task"
   tmp = i;
 
@@ -378,3 +386,4 @@ document.getElementById("button_close_des").onclick = function () {
   document.getElementById('default-modal').classList.toggle('hidden');
   header.style.filter = "blur(0)"
 }
+
