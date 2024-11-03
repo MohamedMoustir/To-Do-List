@@ -4,14 +4,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <title>Document</title>
   <link rel="stylesheet" href="./src/output.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
+
+
 <body class="font-poppins bg-[#243642] h-[100vh]  scroll-smooth ">
+
+<!-- statistick -->
+<div class="bg-gray-100  grid justify-center content-center top-4 text-center fixed">
+  <div class="w-fit rounded-[8px] bg-white p-3 aspect">
+      
+      <div class="my-2">
+          <h2 class="text-4xl font-bold"><span id="allstatick">0</span></h2>
+      </div>
+
+      <div>
+          <p class="mt-2 font-sans text-base font-medium  text-gray-500">Statistiques </p>
+      </div>
+  </div>
+</div>
+
   <nav class="">
     <button data-collapse-toggle="navbar-hamburger" type="button"
       class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 absolute right-24 "
@@ -48,30 +65,31 @@
     </div>
     </div>
   </nav>
-  
-  <header class="">
-  
-      <div class="my-32 mx-5 md:mx-12 lg:mx-24 xl:mx-52">
-        <div class="flex flex-col md:flex-row justify-between gap-4 mb-12">
-          <button class="bg-[#387478] hover:bg-[#1a3b3e] text-white font-bold py-2 px-4 rounded"
-                  onclick="openCardsTasks()">Add Tasks +</button>
-          
-          <div id="search" class="group cursor-pointer flex justify-center items-center rounded-lg shadow-lg h-10 w-full md:w-1/2 lg:w-2/5 bg-white">
-            <input onkeyup="recherche(this.value)" id="recher"
-                   class="bg-transparent m-0 w-0 outline-none rounded-none transition-all duration-800 group-hover:w-[90%] text-black"
-                   type="text" placeholder="Search" />
-            <a href="#">
-              <i class="fas fa-search fonts text-stone-500 text-xl"></i>
-            </a>
-          </div>
-          
-          <button class="bg-[#387478] hover:bg-[#1a3b3e] text-white font-bold py-2 px-4 rounded"
-                  onclick="AddMultiple()">Add Multiple +</button>
-        </div>
-    
-  
 
-     <!-- tous cards  -->
+  <header class="">
+
+    <div class="my-32 mx-5 md:mx-12 lg:mx-24 xl:mx-52">
+      <div class="flex flex-col md:flex-row justify-between gap-4 mb-12">
+        <button class="bg-[#387478] hover:bg-[#1a3b3e] text-white font-bold py-2 px-4 rounded"
+          onclick="openCardsTasks()">Add Tasks +</button>
+
+        <div id="search"
+          class="group cursor-pointer flex justify-center items-center rounded-lg shadow-lg h-10 w-full md:w-1/2 lg:w-2/5 bg-white">
+          <input onblur="recherche(this.value)" id="recher"
+            class="bg-transparent m-0 w-0 outline-none rounded-none transition-all duration-800 group-hover:w-[90%] text-black"
+            type="text" placeholder="Search" />
+          <a href="#">
+            <i class="fas fa-search fonts text-stone-500 text-xl"></i>
+          </a>
+        </div>
+
+        <button class="bg-[#387478] hover:bg-[#1a3b3e] text-white font-bold py-2 px-4 rounded"
+          onclick="AddMultiple()">Add Multiple +</button>
+      </div>
+
+
+
+      <!-- tous cards  -->
       <div class="flex justify-center items-center">
         <div class="grid grid-cols-1 gap-12 my-12 xl:grid-cols-3">
           <div class="text-white px-2">
@@ -81,25 +99,27 @@
               <div id="task1" class="cards border-t-2 my-5 border-white py-11 w-64 text-white"></div>
             </div>
           </div>
-  
+
           <div class="text-white">
-            <div class="font-bold">In Progress <span class="border-l-2 border-y-white-200 px-1 text-white" id="counttwe">0</span></div>
+            <div class="font-bold">In Progress <span class="border-l-2 border-y-white-200 px-1 text-white"
+                id="counttwe">0</span></div>
             <!-- cards -->
             <div id="task2" class="cards border-t-2 my-5 border-white py-11 w-64 text-white self-center"></div>
           </div>
-  
+
           <div class="text-white">
-            <div class="font-bold">Done <span class="border-l-2 border-y-white-200 px-1 text-white" id="counttree">0</span></div>
+            <div class="font-bold">Done <span class="border-l-2 border-y-white-200 px-1 text-white"
+                id="counttree">0</span></div>
             <div id="task3" class="cards border-t-2 my-5 border-white py-11 w-64 text-white"></div>
           </div>
         </div>
       </div>
-  
+
       <!-- tasks -->
       <div class="grid grid-cols-3" id="taskHTML"></div>
     </div>
   </header>
-  
+
   <section>
     <!-- Main modal -->
     <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -257,7 +277,7 @@
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
               <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 " id="text">
-                  
+
               </p>
 
             </div>
@@ -267,15 +287,16 @@
         </div>
       </div>
 
-  <section >
-    <div id="errorPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center z-50 absolute justify-center hidden ">
-      <div class="bg-white p-6 rounded-lg w-80 relative">
-        <p class="text-red-500 font-semibold">Erreur : Entrée non valide !</p>
-        <p class="mt-2">Veuillez vérifier votre saisie.</p>
-        <button class="bg-red-500 text-white px-4 py-2 mt-4 rounded" onclick="closePopup()">Fermer</button>
-      </div>
-    </div>
-  </section>
+      <section>
+        <div id="errorPopup"
+          class="fixed inset-0 bg-black bg-opacity-50 flex items-center z-50 absolute justify-center hidden ">
+          <div class="bg-white p-6 rounded-lg w-80 relative">
+            <p class="text-red-500 font-semibold">Erreur : Entrée non valide !</p>
+            <p class="mt-2">Veuillez vérifier votre saisie.</p>
+            <button class="bg-red-500 text-white px-4 py-2 mt-4 rounded" onclick="closePopup()">Fermer</button>
+          </div>
+        </div>
+      </section>
       <script src="js/script.js"></script>
 </body>
 

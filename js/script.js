@@ -19,7 +19,7 @@ let triparDate_limite = document.getElementById("triparDate_limite")
 let more_description = document.getElementById("text")
 
 // rejex
-let validTitle = /^\w{1,10}$/;
+let validTitle = /^\w{1,10}/;
 let validDescription = /^\w+\W?\s?\w+/ig;
 let validdetaLimite = /^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01])$/
 // function add task  in local Storge
@@ -27,7 +27,7 @@ addTask.addEventListener("click", function () {
 
   if (!validdetaLimite.test(date_limite.value)) {
     document.getElementById("errorPopup").classList.toggle("hidden")
-    
+
   } else if (!validTitle.test(Title.value)) {
     document.getElementById("errorPopup").classList.toggle("hidden")
   } else if (!validDescription.test(description.value)) {
@@ -57,16 +57,16 @@ addTask.addEventListener("click", function () {
     setDataInnerHtml()
     closeCardsTasks()
     clearFormFields()
-     location.reload()
+    location.reload()
 
   }
 
 })
 
 // colse pop-up rejex
-function closePopup(){
+function closePopup() {
   document.getElementById("errorPopup").classList.toggle("hidden")
-  
+
 }
 
 
@@ -90,13 +90,14 @@ function setDataInnerHtml() {
   let countToDo = 0;
   let countDoing = 0;
   let countDone = 0;
+  let numberTotal =0
 
-// divsion colors (p1 p2 p3)
+  // divsion colors (p1 p2 p3)
   setdata.forEach(task => {
 
     let borderColor;
     if (task.Priority === "1") {
-      borderColor = "4px solid  #AF1740";
+      borderColor = "4px solid  #F6F193";
     } else if (task.Priority === "2") {
       borderColor = "4px solid #FD8B51";
     } else if (task.Priority === "3") {
@@ -156,8 +157,10 @@ function setDataInnerHtml() {
         }
         break;
     }
+    numberTotal++
   });
 
+ document.getElementById("allstatick").innerHTML=numberTotal;
   // add  counts in task
   document.getElementById("countone").innerText = countToDo;
   document.getElementById("counttwe").innerText = countDoing;
@@ -166,24 +169,27 @@ function setDataInnerHtml() {
 
 //function ajoute task
 function ajoute(item, borderColor) {
-// get date now
+  // get date now
   let new_date = new Date();
-
   let year = new_date.getFullYear();
   let month = new_date.getMonth() + 1;
   let day = new_date.getDate();
 
   let date = `${year}-${month}-0${day}`;
 
-  let dateUtilse = item.date_limite
-// check date
+  let dateUtilse = item.date_limite;
+
+  // check date
   let color_time;
   let line_through;
   if (dateUtilse < date) {
-    color_time = "8px solid red"
-    line_through ="line-through"
-  } 
-// style date 
+    color_time = "8px solid red";
+    line_through = "line-through";
+  } else {
+    color_time = "8px solid green";
+  }
+
+  // style date 
   const time = item.date_limite.split("-");
   const mounth = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -191,35 +197,34 @@ function ajoute(item, borderColor) {
   more_description.innerHTML = item.description;
 
   let taskHTML = `
-  <div class="bg-white bg-opacity-90 backdrop-blur-md  shadow-lg rounded-xl border-l-4 p-4 mb-6 w-72 relative card transition-all duration-200 transform hover:scale-105 hover:shadow-2xl" style="border-left:${borderColor};">
-  
-  <div class="absolute text-gray-500 text-lg font-bold right-3 top-2 cursor-pointer transition-colors hover:text-gray-700">
-    <h1 onclick="openpop_updescription(${item.id})">...</h1>
-  </div>
-  
+                        <div class="bg-white bg-opacity-90 backdrop-blur-md  shadow-lg rounded-xl border-l-4 p-4 mb-6 w-72 relative card transition-all duration-200 transform hover:scale-105 hover:shadow-2xl" style="border-left:${borderColor};">
+                      
+                        <div class="absolute text-gray-500 text-lg font-bold right-3 top-2 cursor-pointer transition-colors hover:text-gray-700">
+                          <h1 onclick="openpop_updescription(${item.id})">...</h1>
+                        </div>
+                        
+                        <div class="relative mb-2">
+                          <h1 class="border-l-4 border-gray-200 rounded-sm px-2 py-1 text-gray-600 text-sm font-medium absolute right-0 top-7 bg-white bg-opacity-80" id="limite" style="border-left:${color_time}; text-decoration-line:${line_through}">
+                            ${time[1]} ${mounth[Number(time[1]) - 1]}
+                          </h1>
+                        </div>
 
-  <div class="relative mb-2">
-    <h1 class="border-l-4 border-gray-200 rounded-sm px-2 py-1 text-gray-600 text-sm font-medium absolute right-0 top-7 bg-white bg-opacity-80" id="limite" style="border-left:${color_time}; text-decoration-line:${line_through}">
-      ${time[1]} ${mounth[Number(time[1]) - 1]}
-    </h1>
-  </div>
-
-
-  <h3 class="font-bold text-lg text-gray-900 mb-2">${item.Title}</h3>
-  <p class="text-gray-600 text-sm mb-4">${item.description.slice(0,10)}... | <span class="font-semibold text-gray-800">P${item.Priority}</span></p>
-  
-  <div class="flex justify-between">
-    <button onclick="removeTask(${item.id})" class="bg-gradient-to-r text-red-500 to-red-600 hover:from-red-600 hover:to-red-700  font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105">
-      Remove
-    </button>
-    <button onclick="UpditeTask(${item.id})" class="bg-gradient-to-r text-green-500 to-green-600 hover:from-green-600 hover:to-green-700  font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105">
-      Update
-    </button>
-  </div>
-</div>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">${item.Title}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${item.description.slice(0, 10)}... | <span class="font-semibold text-gray-800">P${item.Priority}</span></p>
+                        
+                        <div class="flex justify-between">
+                          
+                          <button onclick="UpdateTask(${item.id})" class="bg-gradient-to-r bg-[#58bcc5]  hover:to-bg-[#1a3b3e] hover:from-bg-[#1a3b3e]    font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105">
+                            Update
+                          </button>
+                          <button onclick="removeTask(${item.id})" class="bg-gradient-to-r text-red-500 to-red-600 hover:bg-white  hover:to-red-700  font-semibold py-2 px-4 rounded-lg shadow transition-all transform hover:scale-105">
+                            Remove
+                          </button>
+                        </div>
+                  </div>
 
     `;
-  return taskHTML
+  return taskHTML;
 
 
 }
@@ -250,13 +255,13 @@ function OpenMnue() {
 let crud_modal = document.getElementById("crud-modal")
 function openCardsTasks() {
   crud_modal.classList.toggle("hidden");
-   header.style.filter="blur(4px)"
+  header.style.filter = "blur(4px)"
 
 }
 //  close cards add tasks
 function closeCardsTasks() {
   crud_modal.classList.toggle("hidden");
-   header.style.filter="blur(0)"
+  header.style.filter = "blur(0)"
 
 }
 
@@ -265,9 +270,6 @@ function closeCardsTasks() {
 
 // function popup Remove
 function removeTask(id) {
-  // let popup_remove= document.getElementById("popup-remove");
-  //  popup_remove.classList.toggle("hidden");
-  //  header.classList.toggle('blur-sm');
   setdata = setdata.filter(filter => filter.id !== id);
   localStorage.setItem("task", JSON.stringify(setdata));
   setDataInnerHtml();
@@ -277,16 +279,16 @@ function removeTask(id) {
 function closepopupremove() {
   let popup_remove = document.getElementById("popup-remove");
   popup_remove.classList.toggle("hidden");
-   header.style.filter="blur(4px)"
+  header.style.filter = "blur(4px)"
 }
 
 
 // function Update Task
-function UpditeTask(i) {
+function UpdateTask(i) {
   crud_modal.classList.toggle("hidden");
   header.classList.toggle('blur-sm');
   addTask.innerHTML = "Update";
- 
+
   tmp = i;
 
   const task = setdata.find(task => task.id === i);
@@ -297,7 +299,7 @@ function UpditeTask(i) {
     Status.value = task.Status;
     date_limite.value = task.date_limite;
   }
- 
+
 }
 
 
@@ -306,9 +308,9 @@ function recherche(value) {
   let recher = document.getElementById("recher")
   setdata = setdata.filter(filter => filter.Title === recher.value);
   setDataInnerHtml();
-if (recher.value='') {
-  location.reload()
-}
+  if (recher.value = '') {
+    location.reload()
+  }
 }
 
 
@@ -366,13 +368,13 @@ triparDate_limite.onclick = function () {
 // function pop_up more description
 function openpop_updescription(id) {
   document.getElementById('default-modal').classList.toggle('hidden');
-  header.style.filter="blur(4px)"
+  header.style.filter = "blur(4px)"
   const taskk = setdata.find(taskk => taskk.id === id)
   if (taskk) {
     more_description.innerHTML = taskk.description;
   }
 }
-document.getElementById("button_close_des").onclick =function(){
+document.getElementById("button_close_des").onclick = function () {
   document.getElementById('default-modal').classList.toggle('hidden');
-   header.style.filter="blur(0)"
+  header.style.filter = "blur(0)"
 }
