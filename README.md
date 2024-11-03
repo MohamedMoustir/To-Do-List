@@ -1,8 +1,14 @@
 
                                        **TaskFlow Project**
-A: Project Context TaskFlow is a start-up focused on enhancing its development team's efficiency by implementing a straightforward task management system. This application will assist users in creating, tracking, and organizing their tasks, thereby simplifying project planning.
 
 ![Capture d'écran 2024-11-03 021035](https://github.com/user-attachments/assets/aceb600b-4c2e-471e-857a-9209ee48c2b9)
+
+
+
+
+                                       
+Project Context TaskFlow is a start-up focused on enhancing its development team's efficiency by implementing a straightforward task management system. This application will assist users in creating, tracking, and organizing their tasks, thereby simplifying project planning.
+
 
 
 Objectifs L'objectif principal de l'application est de :
