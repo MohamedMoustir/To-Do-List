@@ -288,7 +288,7 @@ function UpdateTask(i) {
   crud_modal.classList.toggle("hidden");
   header.classList.toggle('blur-sm');
   addTask.innerHTML = "Update";
-
+ document.getElementById("text_up").innerHTML="Update New task"
   tmp = i;
 
   const task = setdata.find(task => task.id === i);
