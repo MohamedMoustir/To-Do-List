@@ -274,11 +274,10 @@ function removeTask(id) {
   document.querySelector(".targ").style.opacity = "0";
   document.querySelector(".targ").style.transform = "scale(0.9)";
 
-  setTimeout(() => {
     setdata = setdata.filter(filter => filter.id !== id);
     localStorage.setItem("task", JSON.stringify(setdata));
     setDataInnerHtml();
-  }, "500");
+  
   
 
 }
